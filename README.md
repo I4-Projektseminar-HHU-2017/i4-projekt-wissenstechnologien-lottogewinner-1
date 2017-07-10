@@ -2,7 +2,7 @@
 Authors: Manuela Winkens, Mehmet Memet
 Date: 10-07-2017
 
-Program name: Lottosystem
+Program name: Lottosystem_Neu1
 Version: 2.2
 Language: Java
 
@@ -25,12 +25,12 @@ Open your Console (windows: cmd) or an IDE of your choice.
 
 Console:
 Change your directory to the one, where your programmfiles are in. (windows: cd .../...)
-Type javac Lottosystem.java to compile the programm.
-Type java Lottosystem to run the programm.
+Type javac Lottosystem_Neu1.java to compile the programm.
+Type java Lottosystem_Neu1 to run the programm.
 
 IDE:
 Import the files into your workspace.
-Run the file Lottosystem as a java application.
+Run the file Lottosystem_Neu1 as a java application.
 
 You want to be part of the team?
 You have any questions or concerns?
