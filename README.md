@@ -16,7 +16,7 @@ More information: https://creativecommons.org/licenses/by-nc-sa/3.0/
 
 Brief description: This programm provides a statistic on german Lotto. 
 In this version you can check if a pattern of six numbers between 1-49 has
-already been in the statistics. You can also get six lines a six numbers which are provided by a system which is based on frequency.
+already been in the statistics. You can also get six lines with six numbers which are provided by a system which is based on frequency.
 The GUI and the search-method are not implemented yet.
 
 Installation: You need to have the java development kit and java on your pc.
