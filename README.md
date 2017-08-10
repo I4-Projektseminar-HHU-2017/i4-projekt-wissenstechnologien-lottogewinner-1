@@ -3,7 +3,7 @@ Authors: Manuela Winkens
 Date: 10-07-2017
 
 Program name: Lottosystem_Neu1
-Version: 3.0
+Version: 4.0
 Language: Java
 
 Contact: Manuela.Winkens@hhu.de
@@ -16,12 +16,15 @@ More information: https://creativecommons.org/licenses/by-nc-sa/3.0/
 
 Brief description: This programm provides a statistic on german Lotto. 
 In this version you can check if a pattern of six numbers between 1-49 has
-already been in the statistics. You can also get six lines with six numbers which are provided by a system which is based on frequency.
+already been in the statistics. 
+You can also generate six lines with six numbers which are provided by a system which is based on frequency.
+You can generate the six most frequently drawn numbers.
+You can search for one number and get the frequency of it.
 The GUI and the search-method are not implemented yet.
 
 Installation: You need to have the java development kit and java on your pc.
 You can get it here: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
-Download all files from the github repository. 
+Download the zip File from the github repository. Unzip the file.
 Open your Console (windows: cmd) or an IDE of your choice.
 
 Console:
