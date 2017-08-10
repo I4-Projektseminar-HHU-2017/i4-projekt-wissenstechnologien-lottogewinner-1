@@ -1,31 +1,32 @@
+
 /**
- * Description: 
+ * Description: Einlesen der Statistik aus einer txt Datei
  *
  *
- * @author	Manuela Winkens, Mehmet Memet
+ * @author	Manuela Winkens
  * @version	1.0.0
  **/
 import java.io.*;
 
-class ReadFile1{
-	
-	//private static final int LOTTOZAHLEN = 6;
+class ReadFile1 {
+
+	// private static final int LOTTOZAHLEN = 6;
 	private static final int MAXZAHLEN = 8;
-	
-	String 					fileNamen;
-	BufferedReader 	zeileLesen = null;
-	File 						file = null;
-	String 					zeile = null;
-	int							goodLines = 0;
-	int							badLines = 0;
-	
-	// prepare for reading  lines 
+
+	String fileNamen;
+	BufferedReader zeileLesen = null;
+	File file = null;
+	String zeile = null;
+	int goodLines = 0;
+	int badLines = 0;
+
+	// prepare for reading lines
 	public ReadFile1(String fileNamen) {
 		this.fileNamen = fileNamen;
 		this.file = new File(this.fileNamen);
 		if (!file.canRead() || !file.isFile())
-      System.exit(0);
-		
+			System.exit(0);
+
 		try {
 			zeileLesen = new BufferedReader(new FileReader(this.fileNamen));
 		} catch (FileNotFoundException e) {
@@ -33,45 +34,41 @@ class ReadFile1{
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	/**
-	 * liefert ein int 8-stelliges array zurueck
-	 * pos 0 - 5: Lottozahlen
-	 * pos 6    : Zusatzzahl, wenn nicht vorhanden "0"
-	 * pos 7    : Superzahl,  wenn nicht vorhanden "0"
+	 * liefert ein int 8-stelliges array zurueck pos 0 - 5: Lottozahlen pos 6 :
+	 * Zusatzzahl, wenn nicht vorhanden "0" pos 7 : Superzahl, wenn nicht
+	 * vorhanden "0"
 	 * 
 	 * oder Null, falls keine Zahlen vorhanden oder Dateiende
 	 **/
-	int[] getLottoZahlen(){
-		
-		String[]	splitLines;
-		String 		zeileOrig;
-		boolean 	zeilenOK;
-		
-		do{
-			zeileOrig = this.readLine();	// lese naechste zeile
+	int[] getLottoZahlen() {
+
+		String[] splitLines;
+		String zeileOrig;
+		boolean zeilenOK;
+
+		do {
+			zeileOrig = this.readLine(); // lese naechste zeile
 			if (zeileOrig == null)
-				return null;								// 
-		
+				return null; //
+
 			splitLines = zeileOrig.split(",");
-			if (splitLines.length < MAXZAHLEN){
+			if (splitLines.length < MAXZAHLEN) {
 				zeilenOK = false;
 				badLines++;
-			}	
-			else{
+			} else {
 				zeilenOK = true;
 				goodLines++;
 			}
-		}while (!zeilenOK);
-		
+		} while (!zeilenOK);
+
 		int[] zarray = textAlsZahl(splitLines);
-		
+
 		return zarray;
 	}
-	
-	
-	String readLine(){
+
+	String readLine() {
 		try {
 			zeile = zeileLesen.readLine();
 		} catch (IOException e) {
@@ -81,51 +78,34 @@ class ReadFile1{
 		}
 		return zeile;
 	}
-	
+
 	/**
-	 Ermitteln eines int[] aus einem String[]
-	 @param text String[], das ausgewertet werden soll
-	 @return 6 zahlen + ggf. zusatzzahl und superzahlgleichgrosses int[]
-	 es wird solange gesucht bis leere Strings (int 0) oder zahlen (0<z<50)gefunden
-	 werden. 
+	 * Ermitteln eines int[] aus einem String[]
+	 * 
+	 * @param text
+	 *            String[], das ausgewertet werden soll
+	 * @return 6 zahlen + ggf. zusatzzahl und superzahlgleichgrosses int[] es
+	 *         wird solange gesucht bis leere Strings (int 0) oder zahlen
+	 *         (0<z<50)gefunden werden.
 	 */
-		private int[]textAlsZahl(String[] text){
-	    int[] zahl = new int[MAXZAHLEN];
-	    int idx;
-	    
-	    idx = 0;
-	    for (int i = 0; i < text.length; i++){
-	    	
-	    	if (text[i].equals("")){
-	    		zahl[idx++] = 0;		// leerer string setze 0
-	    		continue;
-	    	}
+	private int[] textAlsZahl(String[] text) {
+		int[] zahl = new int[MAXZAHLEN];
+		int idx;
 
-	    	try{zahl[idx++]= Integer.parseInt(text[i]);
-	        }
-	        catch (java.lang.NumberFormatException e){
-	        	idx--;
-//	            System.out.println("Bitte geben Sie eine Zahl an!");
-	        }
-	    }
-	    return zahl;
+		idx = 0;
+		for (int i = 0; i < text.length; i++) {
+
+			if (text[i].equals("")) {
+				zahl[idx++] = 0; // leerer string setze 0
+				continue;
+			}
+
+			try {
+				zahl[idx++] = Integer.parseInt(text[i]);
+			} catch (java.lang.NumberFormatException e) {
+				idx--;
+			}
+		}
+		return zahl;
 	}
-	
-	
-	public static void main(String[] args){
-	    LineNumberReader f;
-	    String line;
-
-	    try {
-	      f = new LineNumberReader(
-	          new FileReader("sql.txt"));
-	      while ((line = f.readLine()) != null) {
-	        System.out.print(f.getLineNumber() + ": ");
-	        System.out.println(line);
-	      }
-	      f.close();
-	    } catch (IOException e) {
-	      System.out.println("Fehler beim Lesen der Datei");
-	    }
-	  }
 }

@@ -7,46 +7,58 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * Description:
+ * Description: Lottoprogramm mit den Funktionen:
+ * Muster ueberpruefen
+ * 6 Lottoreihen nach Haeufigkeits-System ausgeben
+ * Ausgabe der 6 haeufigsten Zahlen
+ * Suchen nach einer Zahl; Ausgabe der Haeufigkeit
  *
- *
- * @author Manuela Winkens, Mehmet Memet
- * @version 2.0
+ * @author Manuela Winkens
+ * @version 4.0
  **/
 
 public class Lottosystem_Neu1 {
 
 	private static final String FILENAMEN = "lottozahlen_archiv.txt";
 
+	/**
+	 * 
+	 * @param array
+	 * @return sortiert ein 2D Array nach Haeufigkeit und gibt dieses aus
+	 */
 	public static int[][] sortFreq(int[][] array) {
+		int tmp;
+		int tmp2;
+		for (int i = 1; i < array.length; i++) {
+			for (int j = 0; j < array.length - i; j++) {
+				// pruefen welche der beiden Zahlen goesser bzw. kleiner ist
+				// absteigende Sortierung
+				if (array[j][1] < array[j + 1][1]) {
 
-		int x;
-		boolean bool = true; // Abbruchbedingung
-		int temp;
-		int tempj; // temporaere Variabel, die beim Tausch gefuellt wird
+					// Tausch der Haeufigkeit
+					tmp = array[j][1];
+					array[j][1] = array[j + 1][1];
+					array[j + 1][1] = tmp;
 
-		while (bool) {
-			bool = false;
-
-			for (x = 0; x < 48; x++) { // Durchlaufen des Arrays
-
-				if (array[x][1] < array[x + 1][1]) {
-
-					temp = array[x][1]; // Tausch des Wertes
-					array[x][1] = array[x + 1][1];
-					array[x + 1][1] = temp;
-
-					tempj = array[x][0];
-					array[x][0] = array[x + 1][0];
-					array[x + 1][0] = tempj;
-					bool = true;
+					// Tausch der Lottozahl
+					tmp2 = array[j][0];
+					array[j][0] = array[j + 1][0];
+					array[j + 1][0] = tmp2;
 				}
+
 			}
 		}
-
 		return array;
 	}
 
+	/**
+	 *
+	 * @param array
+	 * @param start
+	 * @param diff
+	 * @return gibt ein Array mit 6 zufaellig generierten Zahlen aus einem
+	 *         Bereich zurueck
+	 */
 	public static int[] zufall(int[][] array, int start, int diff) {
 
 		int[] zufallsarray = new int[6];
@@ -76,6 +88,11 @@ public class Lottosystem_Neu1 {
 		return zufallsarray;
 	}
 
+	/**
+	 * Gibt die 6 Lottoreihen auf der Kommandozeile aus
+	 * 
+	 * @param liste
+	 */
 	public static void printReihen(int[][] liste) {
 		System.out.println();
 		System.out.println("Die Zahlen fuer diese Ziehnung lauten: ");
@@ -95,6 +112,13 @@ public class Lottosystem_Neu1 {
 		}
 	}
 
+	/**
+	 * Eingabe eines Muster, dass ueberprueft wird, ob es bereits gezogen wurde
+	 * 
+	 * @param muster
+	 * @param listOfLottoZahlen
+	 * @param lottoZahlen
+	 */
 	public static void testMuster(int[] muster, ArrayList<int[]> listOfLottoZahlen, int[] lottoZahlen) {
 		int[] xRichtige = new int[7];
 		int treffer = 0;
@@ -125,29 +149,30 @@ public class Lottosystem_Neu1 {
 		System.out.println("   6 Treffer: " + xRichtige[6]);
 	}
 
+	/**
+	 * Sucht eine Zahl im 2D Array und gibt die Haeufigkeit aus
+	 * @param liste
+	 * @param x
+	 */
 	public static void search(int[][] liste, int x) {
 		boolean found = false;
-		for(int i=0; i<49; i++){
-			if(liste[i][0]==x) {
+		for (int i = 0; i < 49; i++) {
+			if (liste[i][0] == x) {
 				System.out.println("Dein gesuchter Wert " + x + " kam so oft vor: " + liste[i][1]);
 				found = true;
 			}
 		}
-		if (found==false) {
+		if (found == false) {
 			System.out.println("Falsche Zahl eingegeben.");
 		}
 	}
-
+	/**
+	 * Main-Methode zum initialisieren des Programmes
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		// Stand 23.07.17
-		int[][] liste = { { 1, 500 }, { 2, 499 }, { 3, 513 }, { 4, 504 }, { 5, 494 }, { 6, 558 }, { 7, 508 },
-				{ 8, 457 }, { 9, 507 }, { 10, 501 }, { 11, 521 }, { 12, 482 }, { 13, 439 }, { 14, 483 }, { 15, 474 },
-				{ 16, 489 }, { 17, 512 }, { 18, 495 }, { 19, 497 }, { 20, 476 }, { 21, 472 }, { 22, 530 }, { 23, 482 },
-				{ 24, 498 }, { 25, 513 }, { 26, 547 }, { 27, 507 }, { 28, 478 }, { 29, 493 }, { 30, 485 }, { 31, 523 },
-				{ 32, 549 }, { 33, 530 }, { 34, 487 }, { 35, 490 }, { 36, 507 }, { 37, 496 }, { 38, 536 }, { 39, 511 },
-				{ 40, 495 }, { 41, 520 }, { 42, 514 }, { 43, 527 }, { 44, 486 }, { 45, 448 }, { 46, 479 }, { 47, 493 },
-				{ 48, 504 }, { 49, 543 } };
-		int[][] sortedList = sortFreq(liste);
+
+		int[][] liste = new int[49][2];
 		int[] lottoZahlen;
 		int counter = 0;
 		int zahl = 0;
@@ -186,18 +211,26 @@ public class Lottosystem_Neu1 {
 			}
 		}
 
+		int[][] sortedList = sortFreq(liste);
+
 		System.out.println("Muster ueberpruefen?: 1 eingeben.");
 		System.out.println("Ausgabe 6 Lottoreihen?: 2 eingeben.");
-		System.out.println("Du suchst eine Zahl?: 3 eingeben.");
+		System.out.println("Die haeufigsten 6 Zahlen?: 3 eingeben.");
+		System.out.println("Du suchst eine Zahl?: 4 eingeben.");
 		int eingabe = StdIn.readInt();
 		if (eingabe == 1) {
 			testMuster(muster, listOfLottoZahlen, lottoZahlen);
 		} else if (eingabe == 2) {
 			printReihen(sortedList);
-		} else if (eingabe==3) {
-			search(liste, 5); //funktioniert nicht
-		}
-		else {
+		} else if (eingabe == 3) {
+			for (int i = 0; i < 6; i++) {
+				System.out.println(i + 1 + ". " + sortedList[i][0] + " " + sortedList[i][1]);
+			}
+		} else if (eingabe == 4) {
+			System.out.println("Bitte gib deine gesuchte Zahl ein: ");
+			int ges = StdIn.readInt();
+			search(liste, ges);
+		} else {
 			System.out.println("Keine gueltige Eingabe, Programmabbruch.");
 		}
 	}
